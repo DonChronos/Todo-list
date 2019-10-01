@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<style>
+	body {
+	text-align: center;
+}
+
+ul {
+padding: 0;
+}
+
+ul li {
+	position: relative;
+	background-color: darkgray;
+	font-size: 24px;
+	list-style-type: none;
+}
+
+ul li.checked {
+text-decoration: line-through;
+background-color: gray;
+}
+
+.close {
+position: absolute;
+padding-left: 10px;
+cursor: pointer;
+}
+</style>
+	<title>To do list</title>
+</head>
+<body>
+	<h1>To do list</h1>
+	<input id="text" type="text" placeholder="Insert text">
+	<button type="button" id="button">Submit</button>
+	<ul id="list">
+	</ul>
+	<script>
+let text = document.querySelector('#text');
+let list = document.querySelector('#list');
+let button = document.querySelector('#button');
+list.addEventListener('click', function(event) {
+  if (event.target.tagName === 'LI') {
+  event.target.classList.toggle('checked');
+  }
+}, false);
+button.onclick = function(){
+	let li = document.createElement('LI');
+	li.append(text.value);
+	if (text.value === '') {
+	return;
+	} else {
+	list.prepend(li);
+	}
+	text.value = '';
+	let span = document.createElement("SPAN");
+    span.className = "close";
+    span.append('\u00D7');
+    li.append(span);
+	let close = document.querySelectorAll('.close');
+	for (let i = 0; i < close.length; i++) {
+	  close[i].onclick = function() {
+	    let div = this.parentElement;
+		div.parentNode.removeChild(div);
+		}
+	}
+};
+</script>
+</body>
+</html>
